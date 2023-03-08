@@ -1,98 +1,24 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[46]:
-
-
 import pandas as pd
 import numpy as np
 import copy
 import random
 
-
-# In[2]:
-
-
 #Converting the data into panda dataframes and visualising
 metadata = pd.read_csv("metadata.csv")
 
-
-# In[3]:
-
-
-metadata
-
-
-# In[6]:
-
-
 filter1 = metadata["group"]=="NORMAL"
 filter2 = metadata["group"]=="DEVIANT"
+
 normal_sample_ids = metadata[filter1]["sample-id"].to_numpy()
-
-
-# In[7]:
-
-
-normal_sample_ids
-
-
-# In[8]:
-
-
 normal_sample_ids = np.insert(normal_sample_ids, 0, 'taxonomy')
 
-
-# In[9]:
-
-
-normal_sample_ids
-
-
-# In[10]:
-
-
 taxonomy = pd.read_csv("taxonomy_400.csv")
-taxonomy
-
-
-# In[11]:
-
-
 taxonomy_normal = taxonomy[normal_sample_ids]
-taxonomy_normal
-
 taxonomy_normal.set_index("taxonomy")
 
-
-# In[12]:
-
-
+# Saving entire list of ASVs or taxons being considered
 taxonomy_range = taxonomy_normal['taxonomy']
 taxonomy_range = list(taxonomy_range)
-
-
-# In[13]:
-
-
-# Saving entire list of ASVs or taxons being considered
-taxonomy_range
-
-
-# In[14]:
-
-
-test = "Faecalibacterium prausnitzii"
-test_data = taxonomy_normal.loc[(taxonomy_normal['taxonomy'] == test)].to_numpy()
-test_data = np.delete(test_data, 0)
-test_data = test_data.astype(str)
-test_data = np.char.strip(test_data, "%")
-test_data = test_data.astype(float)
-test_data
-
-
-# In[16]:
-
 
 # Estimating population averaged relative abundances (mean, standard deviation and defined parameters) 
 # of all taxons across the entire set of "NORMAL" samples
@@ -116,24 +42,7 @@ for i in range(len(taxonomy_range)):
         reference_data.append((ref_taxon, ref_mean, ref_std, ref_max, ref_min))        
         
 normal_parameters = pd.DataFrame.from_records(reference_data, columns = ["taxonomy", "mean", "std", "max", "min"])
-
-
-# In[17]:
-
-
 normal_parameters = normal_parameters.set_index('taxonomy')
-normal_parameters
-
-
-# In[18]:
-
-
-a = list(normal_parameters.loc['Faecalibacterium prausnitzii'])
-a
-
-
-# In[19]:
-
 
 deviant_sample_ids = metadata[filter2]["sample-id"].to_numpy()
 deviant_sample_ids = np.array(deviant_sample_ids[0])
@@ -141,31 +50,11 @@ deviant_sample_ids = np.insert(deviant_sample_ids, 0, 'taxonomy')
 
 taxonomy_deviant = taxonomy[deviant_sample_ids]
 
-
-# In[20]:
-
-
-# For our calculation, we choose deviant sample ERR1072712 (no particular reason for choice)
+# For our calculations, we choose deviant sample ERR1072712 (no particular reason for choice)
 taxonomy_deviant["ERR1072712"] = taxonomy_deviant["ERR1072712"].str.strip("%")
 taxonomy_deviant.ERR1072712 = taxonomy_deviant.ERR1072712.astype(float)
 
-
-# In[21]:
-
-
 taxonomy_deviant = taxonomy_deviant.set_index("taxonomy")
-taxonomy_deviant
-
-
-# In[22]:
-
-
-a = float(taxonomy_deviant.loc['Faecalibacterium prausnitzii'])
-a
-
-
-# In[23]:
-
 
 # Categorising the taxons in the selected DEVIANT sample into U (under-represented), O (over-represented), 
 # and N (normal abundance) categories as per the population averaged values of the respective taxons from 
@@ -189,35 +78,14 @@ for i in range(len(taxonomy_range)):
         set_var = "N"
     
     class_list.append(set_var)
-            
-class_list
-
-
-# In[24]:
-
 
 taxonomy_deviant = taxonomy_deviant.assign(set_class=class_list)
-taxonomy_deviant
-
-
-# In[25]:
-
 
 nim_aminoacids = pd.read_csv("nim-aminoacids_400.csv")
 nim_aminoacids = nim_aminoacids.set_index('taxonomy')
-nim_aminoacids
-
-
-# In[26]:
-
 
 filter3 = ['Trp', 'His', 'Pro', 'Leu', 'Arg', 'Ile_Val']
 nim_aminoacids = nim_aminoacids[filter3]
-nim_aminoacids
-
-
-# In[27]:
-
 
 # Reading the Nutrient Impact matrices for various categories of nutrients into pandas dataframes
 
@@ -228,27 +96,12 @@ nim_aminoacidsD = nim_aminoacidsD.set_index('taxonomy')
 nim_sugars = nim_sugars.set_index('taxonomy')
 nim_vitamins = nim_vitamins.set_index('taxonomy')
 
-
-# In[28]:
-
-
 nim_total = nim_aminoacids.join(nim_aminoacidsD)
 nim_total = nim_total.join(nim_sugars)
 nim_total = nim_total.join(nim_vitamins)
-nim_total
-
-
-# In[29]:
-
 
 # Entire list of nutrients under consideration for dietary intervention
-
 nutrients_range = list(nim_total)
-nutrients_range
-
-
-# In[31]:
-
 
 # Based on the taxon classification into U and O sets, we store the corresponding nutrient impact scores from the
 # cumulative nutient impact matrix into two dictionaries for further use
@@ -265,10 +118,6 @@ for i in range(len(taxonomy_range)):
         dict_unbalanced_U[ref_taxon] = list(nim_total.loc[ref_taxon])
     elif ref_class == 'O':
         dict_unbalanced_O[ref_taxon] = list(nim_total.loc[ref_taxon])
-
-
-# In[32]:
-
 
 # Defining the reward function that will be called for the score calculation of various nutrient combinations
 
@@ -305,10 +154,6 @@ def reward_nutrient(n, dict_unbalanced_O, dict_unbalanced_U, Epsilon_O, Epsilon_
         sum_U = sum_U + reward(b,dict_unbalanced_U,[n], Epsilon_U)
         
     return (sum_U - sum_O)
-
-
-# In[44]:
-
 
 # Naive Randomized Algorithm - calculates the score for a random selection of nutrients from the entire set and 
 # returns the max score out of all random selections
@@ -368,16 +213,6 @@ for k in m:
         i +=1
     
     final_score_dict[k] = [temp_max_length, temp_max_score]
-
-
-# In[45]:
-
-
-final_score_dict
-
-
-# In[54]:
-
 
 # Gibbs' Sampling Algorithm - calculates the score for a random selection of nutrients from the entire set and 
 # then, makes localized changes randomly to improve the score of the random selection
@@ -474,16 +309,6 @@ for m in [5,10,15,20]:
         
     final_score_dict[m] = [np.array(naive_scores).max(), np.array(scores).max()]
 
-
-# In[55]:
-
-
-final_score_dict
-
-
-# In[56]:
-
-
 # Randomised divide and conquer - calculates the score by dividing entire set of nutrients in clusters randomly and
 # picking a single nutrient (with the best score) from each cluster to constitute a combination, 
 # for which the score is then calculated
@@ -543,21 +368,3 @@ for m in [5,10,15,20,25]:
         i+=1
             
     final_score_dict[m] = best_of_all
-
-
-# In[57]:
-
-
-final_score_dict
-
-
-# ['aAOS',
-#  'Xtl',
-#  'bAOS',
-#  '(Rha)n',
-#  'Raf',
-#  'All',
-#  'a(Xyl)n',
-#  'FruAsp',
-#  'Tag',
-#  'Mannan'] -13
