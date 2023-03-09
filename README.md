@@ -13,5 +13,9 @@ In this project, we aim to address the second challenge.
 
 # Repository guide
 
-1. [data](https://github.com/DeevanshuGoyal/CSE282A_Project/tree/main/data): Contains the raw data for the human gut microbe study
-2. 2.  
+* [data](https://github.com/DeevanshuGoyal/CSE282A_Project/tree/main/data): Contains the raw data for the human gut microbe study
+  * [Data description_400.docx](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/data/Data%20description_400.docx): Contains details on what data do the different files represent alongside additional instructions on how to process it
+  * [Phenotypes_legend.xlsx](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/data/Phenotypes_legend.xlsx): contains explanation of binary phenotypes and abbreviations for all nutrients considered in this study
+  * [metadata.csv](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/data/metadata.csv): Contains information on the classification of a particular sample into 'NORMAL', 'DEVIANT', and 'OTHERS' categories. 'NORMAL' samples constitute the reference dataset for a healthy gut microbiome population. Each of the 'DEVIANT' samples constitutes an unhealthy and imbalanced gut microbiome population.
+  * [taxonomy_400.csv](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/data/taxonomy_400.csv): Provides the relative abudance(RA) % data for all 2,827 samples (columns) and the total of 400 taxons (or ASVs) (rows)
+  *  
