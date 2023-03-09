@@ -1,4 +1,4 @@
-# CSE282A_Project - Diet Optimization for Dysbiotic Microbiome
+# Diet Optimization for Dysbiotic Microbiome
 
 Diet has been shown to affect the composition of microbiome by changing the number and activity
 of different microbial communities by providing or depleting the necessary nutrients. This impor-
