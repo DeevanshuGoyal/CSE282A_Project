@@ -17,6 +17,8 @@ In this project, we implement three algorithmic approaches to find the set of nu
 
 # Repository guide
 
+* [Final_project_report_Group_8.pdf](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/Final_project_report_Group_8.pdf): Summarises our approach as well as the results we obtained
+
 * [data](https://github.com/DeevanshuGoyal/CSE282A_Project/tree/main/data): This directory contains the raw data for the human gut microbiome study
   * [Data description_400.docx](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/data/Data%20description_400.docx): Contains details on what data do the different files represent alongside additional instructions on how to process it
   * [taxonomy_400.csv](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/data/taxonomy_400.csv): Provides the relative abudance(RA) % data for all 2,827 samples (columns) and the total of 400 taxons (or ASVs) (rows)
