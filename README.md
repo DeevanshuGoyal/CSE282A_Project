@@ -13,7 +13,7 @@ In this project, we aim to address the second challenge.
 
 # Algorithmic approach
 
-In this project, we implement three algorithmic approaches to find the set of nutrients that can most efficiently restore the gut microbiome diversity (as per the reward function defined in the report). These approaches are Naive randomised selection, Gibbs' sampling, and Randomised divide and conquer, which are implemented as laid out in [CSE282A_project.py](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/CSE282A_project.py).
+In this project, we implement three algorithmic approaches to find the set of nutrients that can most efficiently restore the gut microbiome diversity (as per the reward function defined in the report). These approaches are Naive Randomised Selection, Randomized Local Search, and Randomised Divide & Conquer, which are implemented as laid out in [CSE282A_project.py](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/CSE282A_project.py).
 
 # Repository guide
 
