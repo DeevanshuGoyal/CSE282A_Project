@@ -214,7 +214,7 @@ for k in m:
     
     final_score_dict[k] = [temp_max_length, temp_max_score]
 
-# Gibbs' Sampling Algorithm - calculates the score for a random selection of nutrients from the entire set and 
+# Randomized Local Search Algorithm - calculates the score for a random selection of nutrients from the entire set and 
 # then, makes localized changes randomly to improve the score of the random selection
 
 # Defining the parameters
