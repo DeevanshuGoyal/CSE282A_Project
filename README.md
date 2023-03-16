@@ -17,7 +17,8 @@ In this project, we implement three algorithmic approaches to find the set of nu
 
 # Repository guide
 
-* [Final_project_report_Group_8.pdf](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/Final_project_report_Group_8.pdf): Summarises our approach as well as the results we obtained
+* [Final_project_report_Group_8.pdf](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/Final_project_report_Group_8.pdf): Details out our approach as well as the results we obtained in the form of a report
+* [Final_project_report_Group_8.pdf](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/Final_project_report_Group_8.pdf): Summarises our approach and results in a presentation format
 
 * [data](https://github.com/DeevanshuGoyal/CSE282A_Project/tree/main/data): This directory contains the raw data for the human gut microbiome study
   * [Data description_400.docx](https://github.com/DeevanshuGoyal/CSE282A_Project/blob/main/data/Data%20description_400.docx): Contains details on what data do the different files represent alongside additional instructions on how to process it
